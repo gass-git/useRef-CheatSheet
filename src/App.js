@@ -7,10 +7,9 @@ import { useState, useRef, useEffect } from 'react'
  * - does NOT trigger re-render as useState does
  * - targets DOM node/elements
  * 
- * It can be used to count like useState does and also to
- * extract data from the elements without without re-rendering the component
+ * It can be used to count, like useState does, and also to
+ * extract data from elements without re-rendering the component
  * everytime. 
- * 
  */
 
 export default function App() {
@@ -31,16 +30,30 @@ export default function App() {
     inputContainer.current.value = null
   }
 
-
+  /**
+   * when the function is called it will update the current 
+   * value without re-render. Due to that fact, the only
+   * way to see changes is to console.log() it.
+   */
   function handleClick() {
     count.current++
     console.log(count.current)
   }
 
+  /**
+   * This function when called, it will change the value
+   * of forcedRender, and that will trigger a re-render of the
+   * component due to the fact that forcedRenders const is a dependency
+   * of the useEffect hook.
+   */
   function handleRender() {
     addForcedRender(forcedRenders + 1)
   }
 
+  /**
+   * useEffect will trigger a re-render of the component
+   * when the dependency state changes.
+   */
   useEffect(() => {
     rendersCount.current++
     inputContainer.current.focus()
